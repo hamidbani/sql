@@ -121,6 +121,14 @@ Steps to complete this part of the assignment:
 #### SELECT
 1. Write a query that returns everything in the customer table.
 2. Write a query that displays all of the columns and 10 rows from the customer table, sorted by customer_last_name, then customer_first_ name.
+SELECT* FROM customer;
+
+SELECT *
+FROM customer
+ORDER BY customer_last_name, customer_first_name
+LIMIT 10;
+
+
 
 <div align="center">-</div>
 
