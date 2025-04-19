@@ -235,6 +235,19 @@ ORDER BY c.customer_last_name, c.customer_first_name;
 To insert the new row use VALUES, specifying the value you want for each column:  
 `VALUES(col1,col2,col3,col4,col5)`
 
+CREATE TABLE new_vendor AS
+SELECT * FROM vendor;
+
+INSERT INTO new_vendor 
+VALUES (
+    10,
+    "Thomass Superfood Store",
+    "Fresh Focused",
+    "Thomas",
+    "Rosenthal"
+);
+
+
 <div align="center">-</div>
 
 #### Date
