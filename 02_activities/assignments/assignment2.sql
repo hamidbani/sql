@@ -248,6 +248,7 @@ First, add a new column, current_quantity to the table using the following synta
 ALTER TABLE product_units
 ADD current_quantity INT;
 
+
 Then, using UPDATE, change the current_quantity equal to the last quantity value from the vendor_inventory details.
 
 HINT: This one is pretty hard. 
@@ -259,5 +260,34 @@ Finally, make sure you have a WHERE statement to update the right row,
 When you have all of these components, you can run the update statement. */
 
 
+UPDATE product_units pu
+SET current_quantity = COALESCE(
+    (SELECT vi.quantity 
+     FROM vendor_inventory vi
+     WHERE vi.product_id = pu.product_id
+     ORDER BY vi.market_date DESC
+     LIMIT 1), 
+    0)
+WHERE pu.product_id IN (SELECT DISTINCT product_id FROM vendor_inventory);
 
 
+SELECT * FROM product_units WHERE current_quantity IS NOT NULL;
+
+ALTER TABLE product_units
+ADD current_quantity INT;
+
+
+UPDATE product_units pu
+SET current_quantity = COALESCE(
+    (SELECT vi.quantity 
+     FROM vendor_inventory vi
+     WHERE vi.product_id = pu.product_id
+     ORDER BY vi.market_date DESC
+     LIMIT 1), 
+    0)
+WHERE pu.product_id IN (SELECT DISTINCT product_id FROM vendor_inventory);
+
+
+SELECT product_id, current_quantity 
+FROM product_units 
+WHERE current_quantity IS NOT NULL;
